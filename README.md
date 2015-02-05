@@ -24,18 +24,18 @@ Into this:
         use Filter\HasFilters
 
         protected $input = [
-            'postcode' => 'uppercase|trim',
+            'postcode' => 'upper|trim',
             'city' => 'trim'
         ];
 
         protected $output = [
-            'city' => 'uppercase'
+            'city' => 'upper'
         ];
     }
 
 Can also be used standalone:
 
-    $clean = Filter::filter(['city' => 'London'], ['city' => 'trim|uppercase']);
+    $clean = Filter::filter(['city' => 'London'], ['city' => 'trim|upper']);
 
 ## Installation
 
@@ -121,10 +121,10 @@ These filter rules are specified in properties on the model, `$input` and
             'line2' => 'trim',
             'line3' => 'trim',
             'city' => 'trim',
-            'postcode' => 'uppercase|trim',
+            'postcode' => 'upper|trim',
         ];
         public $output = [
-            'city' => 'uppercase', // Uppercase only for display
+            'city' => 'upper', // Uppercase only for display
         ];
     }
 
