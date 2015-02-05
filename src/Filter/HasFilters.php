@@ -2,7 +2,7 @@
 
 namespace Filter;
 
-use Filter\Facades\Filter;
+use Filter\Facades\Filter as FilterFacade;
 
 /**
  * Modifies accessors and mutators of an eloquent model to implement input and
@@ -26,7 +26,7 @@ trait HasFilters
         $value = parent::getAttribute($key);
 
         if (isset($this->output) && array_key_exists($key, $this->output)) {
-            $value = Filter::filterOne($this->output[$key], $value);
+            $value = FilterFacade::filterOne($this->output[$key], $value);
         }
 
         return $value;
@@ -41,7 +41,7 @@ trait HasFilters
     public function setAttribute($key, $value)
     {
         if (isset($this->input) && array_key_exists($key, $this->input)) {
-            $value = Filter::filterOne($this->input[$key], $value);
+            $value = FilterFacade::filterOne($this->input[$key], $value);
         }
         
         parent::setAttribute($key, $value);
