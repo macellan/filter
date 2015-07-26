@@ -18,15 +18,20 @@ class Filter
      * Filter values
      * @param array $vvalues Array of named values
      * @param array $rules Array of field names to list of rules concatenated by '|' or as an array
+	 * @param boolean $executeRulesForMissingValues If true, all rules are visited, regardless whether the given named value exists or not
      * @return array Filtered values
      */
-    public function filter(array $values, array $rules)
+    public function filter(array $values, array $rules, $executeRulesForMissingValues = true)
     {
         $rules = $this->parseRules($rules);
         $filtered = array();
+		
+		$visitedRules = array();
 
         foreach ($values as $field => $value) {
             if (array_key_exists($field, $rules)) {
+				$visitedRules[$field] = $field;
+				
                 // Call each filter
                 foreach ($rules[$field] as $filter => $args) {
                     $value = $this->callFilter($filter, $value, $args);
@@ -34,6 +39,20 @@ class Filter
             }
             $filtered[$field] = $value;
         }
+		
+		if ($executeRulesForMissingValues == true) {
+			// find non-visited rules
+			$nonExecutedRules = array_diff_key($rules, $visitedRules);
+			$value = null;
+			
+			foreach ($nonExecutedRules as $field => $rule) {
+				foreach ($nonExecutedRules[$field] as $filter => $args) {
+					$value = $this->callFilter($filter, $value, $args);
+				}
+				
+				$filtered[$field] = $value;
+			}
+		}
 
         return $filtered;
     }
@@ -195,5 +214,41 @@ class Filter
         $this->registerFilter('lowerfirst', function($value, array $args) {
             return lcfirst($value);
         });
-    }
+
+        $this->registerFilter('default', function($value, array $args) {
+ 			if (empty($value)) {
+				if (is_array($args) && sizeof($args) > 0) {
+					return $args[0];
+				}
+				
+				return "";
+			}
+			
+			return $value;
+        });
+
+        $this->registerFilter('default_boolean', function($value, array $args) {
+ 			if (empty($value)) {
+				if (is_array($args) && sizeof($args) > 0) {
+					return filter_var($args[0], FILTER_VALIDATE_BOOLEAN);
+				}
+				
+				return false;
+			}
+			
+			return $value;
+       });
+	   
+       $this->registerFilter('default_array', function($value, array $args) {
+ 			if (empty($value)) {
+				if (is_array($args) && sizeof($args) > 0) {
+					return $args;
+				}
+				
+				return [];
+			}
+			
+			return $value;
+       });	
+	}
 }

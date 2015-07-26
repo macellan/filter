@@ -12,6 +12,33 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->filter->registerDefaultFilters();
     }
 
+	public function testDefaultRulesForMissingValues() {
+		$result = $this->filter->filter(
+			['key' => 'value'],
+			['expected_key' => 'default:expected_value']
+		);
+			
+		$this->assertEquals(2, sizeof($result));
+		$this->assertTrue(isset($result['expected_key']));
+		$this->assertEquals('expected_value', $result['expected_key']);
+		$this->assertEquals('value', $result['key']);
+	}
+
+	public function testResultForDisabledExecutionOfNonVisitedRules() {
+		$result = $this->filter->filter(
+			['key' => 'value'],
+			['expected_key' => 'default:expected_value'],
+			false
+		);
+			
+		$this->assertEquals(1, sizeof($result));
+		$this->assertTrue(isset($result['key']));
+	}
+
+	public function testFilterChainingForDefaultRules() {
+		$this->assertEquals("TEST", $this->filter->filterOne('default:test|upper', null));
+	}
+	
     public function testSingleRule() {
         $this->assertEquals('tEST', $this->filter->filterOne('upper|lowerfirst', 'Test'));
     }
@@ -61,6 +88,22 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     public function testRightTrimArgs() {
         $this->assertEquals('$asdf', $this->filter->filterOne('rtrim:#,$', '$asdf#'));
     }
+	
+	public function testDefault() {
+		$this->assertEquals('my_default', $this->filter->filterOne('default:my_default', null));
+	}
+
+	public function testDefaultBoolean() {
+		$this->assertEquals(true, $this->filter->filterOne('default_boolean:true', null));
+	}
+
+	public function testDefaultEmptyArray() {
+		$this->assertEquals([], $this->filter->filterOne('default_array', null));
+	}
+
+	public function testDefaultNonEmptyArray() {
+		$this->assertEquals(['first', 'second'], $this->filter->filterOne('default_array:first,second', null));
+	}
 
     public function testOrdering() {
         $this->assertEquals('tEST', $this->filter->filterOne('lower|upper|lowerfirst', 'test'));

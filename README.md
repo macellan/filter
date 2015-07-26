@@ -43,9 +43,9 @@ Installable via composer:
 
     "rmasters/filter": "dev-master",
 
-### Laravel 4
+### Laravel 4/5
 
-To use the model trait and service for Laravel 4, add the following lines to
+To use the model trait and service for Laravel 4 and Laravel 5, add the following lines to
 `config/app.php`:
 
     'providers' => array(
@@ -75,6 +75,33 @@ Rules are also constructed similarly to Validator:
 Filters are run sequentially from left to right. Arguments are parsed by
 [`str_getcsv`](http://php.net/str_getcsv) - e.g. to trim commas use `trim:","`.
 
+### Default values for missing keys or empty values of keys
+
+For form parsing it is sometimes necessary to get default values for keys even if the keys are not present or the values of the keys are empty. 
+The assignment of default values can be achieved by using the `default*` filters:
+
+    $clean = Filter::filter(['city' => 'London'], ['city' => 'trim|uppercase', 'required_key' => 'default:value|uppercase]);
+	// $clean == ['city' => 'LONDON', 'required_key' => 'VALUE'];
+
+    $clean = Filter::filter([], ['required_key' => 'default']);
+	// $clean == ['required_key' => ''];
+
+    $clean = Filter::filter([], ['required_boolean' => 'default_boolean']);
+	// $clean == ['required_boolean' => false];
+
+    $clean = Filter::filter([], ['required_boolean' => 'default_boolean:true']);
+	// $clean == ['required_boolean' => true];
+
+	$clean = Filter::filter([], ['required_array' => 'default_array']);
+	// $clean == ['required_array' => []]
+
+	$clean = Filter::filter([], ['required_array' => 'default_array:val1,val2']);
+	// $clean == ['required_array' => ['val1', 'val2']]
+	
+The behavior for parsing missing or empty keys can be disabled by passing a `false` flag as third parameter:
+
+	Filter::filter(['key' => 'value'], ['key' => 'trim'], false);
+	
 ### Registering filters
 
 A filter is a callable that accepts the input string and an array of arguments:
@@ -103,6 +130,9 @@ By default the following filters are registered:
     lower       strtolower($str)
     capfirst    ucfirst($str)
     lowerfirst  lcfirst($str)
+	default		*string|double|int* | ""
+	default_boolean	*boolean* | false
+	default_array	*array* | []
 
 ### Laravel 4
 
