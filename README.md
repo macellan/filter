@@ -133,6 +133,7 @@ By default the following filters are registered:
 	default		*string|double|int* | ""
 	default_boolean	*boolean* | false
 	default_array	*array* | []
+	convert_date from_format,to_format[,timezone = 'UTC']
 
 ### Laravel 4
 

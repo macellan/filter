@@ -105,6 +105,14 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(['first', 'second'], $this->filter->filterOne('default_array:first,second', null));
 	}
 
+	public function testConvertDate() {
+		$this->assertEquals('2015-07-27', $this->filter->filterOne('convert_date:d.m.Y,Y-m-d', '27.07.2015'));
+	}
+
+	public function testOptionalDate() {
+		$this->assertEquals(null, $this->filter->filterOne('default|convert_date:d.m.Y,Y-m-d', null));
+	}
+	
     public function testOrdering() {
         $this->assertEquals('tEST', $this->filter->filterOne('lower|upper|lowerfirst', 'test'));
     }

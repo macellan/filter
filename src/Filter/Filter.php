@@ -249,6 +249,15 @@ class Filter
 			}
 			
 			return $value;
-       });	
+       });
+	   
+	   $this->registerFilter('convert_date', function($value, array $args) {
+			if (!empty($value) && sizeof($args) >= 2) {
+				$timezone = sizeof($args) > 3 ? $args[2] : 'UTC';
+				$value = \DateTime::createFromFormat($args[0], $value, new \DateTimeZone($timezone))->format($args[1]);
+			}
+			
+			return $value;
+	   });
 	}
 }
