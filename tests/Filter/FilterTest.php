@@ -35,6 +35,12 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 		$this->assertTrue(isset($result['key']));
 	}
 
+	public function testEmptyRulesDoesNotBreakFilter() {
+		$result = $this->filter->filter(['key' => 'data', 'key2' => 'data2'], ['key' => '', 'key2' => null]);
+		
+		$this->assertEquals(['key' => 'data', 'key2' => 'data2'], $result);
+	}
+	
 	public function testFilterChainingForDefaultRules() {
 		$this->assertEquals("TEST", $this->filter->filterOne('default:test|upper', null));
 	}

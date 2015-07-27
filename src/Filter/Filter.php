@@ -119,6 +119,10 @@ class Filter
      */
     protected function callFilter($name, $value, $args=array())
     {
+		if (empty($name)) {
+			return $value;
+		}
+		
         if (!array_key_exists($name, $this->filters)) {
             throw new \Exception("No filter named '$name' registered");
         }
@@ -155,6 +159,10 @@ class Filter
      * @return array Filter rules
      */
     protected function parseFilters($filters) {
+		if (empty($filters)) {
+			return [];
+		}
+		
         foreach ($filters as $index => $filter) {
             if (strpos($filter, ':') === false) {
                 $filters[$filter] = [];
