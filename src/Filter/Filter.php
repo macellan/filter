@@ -226,13 +226,25 @@ class Filter
         $this->registerFilter('default', function($value, array $args) {
  			if (empty($value)) {
 				if (is_array($args) && sizeof($args) > 0) {
+                    if (strtolower($args[0]) == 'null') {
+                        return null;
+                    }
+
 					return $args[0];
 				}
-				
+
 				return "";
 			}
 			
 			return $value;
+        });
+
+        $this->registerFilter('default_null', function ($value, array $args) {
+            if (empty($value)) {
+                return null;
+            }
+
+            return $value;
         });
 
         $this->registerFilter('default_boolean', function($value, array $args) {
