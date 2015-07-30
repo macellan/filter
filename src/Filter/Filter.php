@@ -39,17 +39,17 @@ class Filter
             }
             $filtered[$field] = $value;
         }
-		
+
 		if ($executeRulesForMissingValues == true) {
 			// find non-visited rules
 			$nonExecutedRules = array_diff_key($rules, $visitedRules);
-			$value = null;
-			
+
 			foreach ($nonExecutedRules as $field => $rule) {
+                $value = null;
 				foreach ($nonExecutedRules[$field] as $filter => $args) {
 					$value = $this->callFilter($filter, $value, $args);
 				}
-				
+
 				$filtered[$field] = $value;
 			}
 		}
@@ -122,12 +122,13 @@ class Filter
 		if (empty($name)) {
 			return $value;
 		}
-		
+
         if (!array_key_exists($name, $this->filters)) {
             throw new \Exception("No filter named '$name' registered");
         }
 
-        return call_user_func($this->filters[$name], $value, $args);
+        $r =  call_user_func($this->filters[$name], $value, $args);
+        return $r;
     }
 
     /**
@@ -162,7 +163,7 @@ class Filter
 		if (empty($filters)) {
 			return [];
 		}
-		
+
         foreach ($filters as $index => $filter) {
             if (strpos($filter, ':') === false) {
                 $filters[$filter] = [];
@@ -230,7 +231,7 @@ class Filter
                         return null;
                     }
 
-					return $args[0];
+                    return $args[0];
 				}
 
 				return "";
