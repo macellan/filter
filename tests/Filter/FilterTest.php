@@ -106,6 +106,14 @@ class FilterTest extends \PHPUnit_Framework_TestCase
 	public function testDefaultBoolean() {
 		$this->assertEquals(true, $this->filter->filterOne('default_boolean:true', null));
 	}
+
+	public function testZeroValueIsByDefaultAFalse() {
+		$this->assertEquals(false, $this->filter->filterOne('default_boolean:true', 0));
+	}
+
+	public function testZeroLiteralIsByDefaultAFalse() {
+		$this->assertEquals(false, $this->filter->filterOne('default_boolean:true', '0'));
+	}
 	
 	public function testDefaultNull() {
 		$this->assertEquals(null, $this->filter->filterOne('default_null', ''));

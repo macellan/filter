@@ -249,7 +249,7 @@ class Filter
         });
 
         $this->registerFilter('default_boolean', function($value, array $args) {
- 			if (empty($value)) {
+			if (($value === null) || (is_string($value) && strlen($value) == 0)) {
 				if (is_array($args) && sizeof($args) > 0) {
 					return filter_var($args[0], FILTER_VALIDATE_BOOLEAN);
 				}
@@ -257,7 +257,7 @@ class Filter
 				return false;
 			}
 			
-			return $value;
+			return filter_var($value, FILTER_VALIDATE_BOOLEAN);
        });
 	   
        $this->registerFilter('default_array', function($value, array $args) {
