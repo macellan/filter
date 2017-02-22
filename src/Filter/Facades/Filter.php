@@ -16,8 +16,8 @@ class Filter extends Facade
      * @return object
      */
     protected static function getFacadeAccessor()
-	{
-		// If the app does not exist, get one with FilterServiceProvider booted
+    {
+        // If the app does not exist, get one with FilterServiceProvider booted
         if (!static::$app) {
             static::$app = FilterServiceProvider::make();
         }

@@ -9,9 +9,9 @@ namespace Filter;
  */
 class Filter
 {
-	/**
-	 * @var array Registered filters
-	 */
+    /**
+     * @var array Registered filters
+     */
     protected $filters = array();
 
     /**
@@ -38,12 +38,12 @@ class Filter
         return $filtered;
     }
 
-	/**
-	 * Filter a single value
-	 * @param mixed $value
-	 * @param array|string $rules
-	 * @return mixed Filtered value
-	 */
+    /**
+     * Filter a single value
+     * @param mixed $value
+     * @param array|string $rules
+     * @return mixed Filtered value
+     */
     public function filterOne($value, $rules) {
         return $this->filter(['_' => $rules], ['_' => $value])['_'];
     }
@@ -51,15 +51,15 @@ class Filter
     /**
      * Register a callback filter
      * @param string $name
-	 * @param callable $filter
-	 * @throws Exception If filter already registered
-	 * @throws Exception If filter is not Callable
+     * @param callable $filter
+     * @throws Exception If filter already registered
+     * @throws Exception If filter is not Callable
      */
     public function registerFilter($name, $filter)
-	{
+    {
         if (array_key_exists($name, $this->filters)) {
-			throw new \Exception("Filter named '$name' already registered");
-		}
+            throw new \Exception("Filter named '$name' already registered");
+        }
 
         if (is_string($filter)) {
             $filter = new $filter;
@@ -70,17 +70,17 @@ class Filter
         }
 
         $this->filters[$name] = $filter;
-	}
+    }
 
-	/**
+    /**
      * Unregister a callback filter
-	 * @param string $name
-	 */
-	public function unregisterFilter($name) {
-		if (array_key_exists($name, $this->filters)) {
-			unset($this->filters[$name]);
-		}
-	}
+     * @param string $name
+     */
+    public function unregisterFilter($name) {
+        if (array_key_exists($name, $this->filters)) {
+            unset($this->filters[$name]);
+        }
+    }
 
     /**
      * Get a list of registered filters
@@ -156,29 +156,29 @@ class Filter
      */
     public function registerDefaultFilters()
     {
-		$this->registerFilter('trim', function($value, array $args) {
-			if (count($args) > 0) {
-				return trim($value, implode($args));
-			} else {
-				return trim($value);
-			}
+        $this->registerFilter('trim', function($value, array $args) {
+            if (count($args) > 0) {
+                return trim($value, implode($args));
+            } else {
+                return trim($value);
+            }
         });
 
         $this->registerFilter('ltrim', function($value, array $args) {
-			if (count($args) > 0) {
-				return ltrim($value, implode($args));
-			} else {
-				return ltrim($value);
-			}
-		});
+            if (count($args) > 0) {
+                return ltrim($value, implode($args));
+            } else {
+                return ltrim($value);
+            }
+        });
 
         $this->registerFilter('rtrim', function($value, array $args) {
-			if (count($args) > 0) {
-				return rtrim($value, implode($args));
-			} else {
-				return rtrim($value);
-			}
-		});
+            if (count($args) > 0) {
+                return rtrim($value, implode($args));
+            } else {
+                return rtrim($value);
+            }
+        });
 
         $this->registerFilter('upper', function($value, array $args) {
             return strtoupper($value);

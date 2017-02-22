@@ -15,12 +15,12 @@ use Filter\Facades\Filter as FilterFacade;
  */
 trait HasFilters
 {
-	/**
-	 * Override accessors to apply output filters
-	 *
-	 * @param string $key
-	 * @return mixed
-	 */
+    /**
+     * Override accessors to apply output filters
+     *
+     * @param string $key
+     * @return mixed
+     */
     public function getAttribute($key)
     {
         $value = parent::getAttribute($key);
@@ -32,12 +32,12 @@ trait HasFilters
         return $value;
     }
 
-	/**
-	 * Override mutators to add input filters
-	 *
-	 * @param string $key
-	 * @param mixed $value
-	 */
+    /**
+     * Override mutators to add input filters
+     *
+     * @param string $key
+     * @param mixed $value
+     */
     public function setAttribute($key, $value)
     {
         if (isset($this->input) && array_key_exists($key, $this->input)) {
