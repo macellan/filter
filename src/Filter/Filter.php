@@ -206,5 +206,21 @@ class Filter
             }
             return Str::slug($value);
         });
+
+        $this->registerFilter('bool', function($value, array $args) {
+            return $value ? true : false;
+        });
+
+        $this->registerFilter('to_json', function($value, array $args) {
+            return json_encode($value);
+        });
+
+        $this->registerFilter('to_array', function($value, array $args) {
+            return json_decode($value, true);
+        });
+
+        $this->registerFilter('to_object', function($value, array $args) {
+            return json_decode($value);
+        });
     }
 }
