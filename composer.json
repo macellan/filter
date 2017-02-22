@@ -1,5 +1,5 @@
 {
-    "name": "rmasters/filter",
+    "name": "bcalik/filter",
     "description": "Makes input and output filtering Eloquent models easy",
     "keywords": ["laravel", "filter", "eloquent"],
     "license": "MIT",
@@ -7,17 +7,21 @@
         {
             "name": "Ross Masters",
             "email":"ross@rossmasters.com"
+        },
+        {
+            "name": "Burak Çalık",
+            "email":"burak@macellan.net"
         }
     ],
-    "homepage": "https://github.com/rmasters/filter",
+    "homepage": "https://github.com/bcalik/filter",
     "support": {
-        "issues": "https://github.com/rmasters/filter/issues",
-        "wiki": "https://github.com/rmasters/filter/wiki"
+        "issues": "https://github.com/bcalik/filter/issues",
+        "wiki": "https://github.com/bcalik/filter/wiki"
     },
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.*",
-        "illuminate/container": "4.*"
+        "illuminate/support": "4.2.*",
+        "illuminate/container": "4.2.*"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
