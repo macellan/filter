@@ -109,14 +109,14 @@ class Filter
 
     /**
      * Return filter rules for each field
-     * 
+     *
      * Example input: ['field' => 'strtoupper|lcfirst|ltrim:.,",",_']
      * Output: ['field' => ['strtoupper' => [], ... ltrim' => ['.', ',', '_']]]
      *
      * Each filter name is separated by a pipe.
      * Filters can have arguments, specified after a colon, which are split by
      * comma using the same rules as str_getcsv.
-     * 
+     *
      * @param string $rules
      * @return array Parsed rules
      */
@@ -159,25 +159,22 @@ class Filter
         $this->registerFilter('trim', function($value, array $args) {
             if (count($args) > 0) {
                 return trim($value, implode($args));
-            } else {
-                return trim($value);
             }
+            return trim($value);
         });
 
         $this->registerFilter('ltrim', function($value, array $args) {
             if (count($args) > 0) {
                 return ltrim($value, implode($args));
-            } else {
-                return ltrim($value);
             }
+            return ltrim($value);
         });
 
         $this->registerFilter('rtrim', function($value, array $args) {
             if (count($args) > 0) {
                 return rtrim($value, implode($args));
-            } else {
-                return rtrim($value);
             }
+            return rtrim($value);
         });
 
         $this->registerFilter('upper', function($value, array $args) {
@@ -194,6 +191,20 @@ class Filter
 
         $this->registerFilter('lowerfirst', function($value, array $args) {
             return lcfirst($value);
+        });
+
+        $this->registerFilter('null', function($value, array $args) {
+            if (empty($value)) {
+                return null;
+            }
+            return $value;
+        });
+
+        $this->registerFilter('slug', function($value, array $args) {
+            if (count($args) > 0) {
+              return Str::slug($value, implode($args));
+            }
+            return Str::slug($value);
         });
     }
 }

@@ -79,7 +79,7 @@ Filters are run sequentially from left to right. Arguments are parsed by
 
 A filter is a callable that accepts the input string and an array of arguments:
 
-    Filter::register('slugify', function($str, array $args) {
+    Filter::registerFilter('slugify', function($str, array $args) {
         return preg_replace('/[^a-z0-9]+/', '-', strtolower($str));
     });
 
@@ -87,7 +87,7 @@ Other callable values are classes that define an `__invoke` method and function
 names. For example, Zend Framework's filters all implement `__invoke`, so
 `'Zend\I18n\Filter\Alnum'` is a valid callable.
 
-Filters can be unregistered using `Filter::unregister('slugify')`.
+Filters can be unregistered using `Filter::unregisterFilter('slugify')`.
 
 #### Default filters
 
@@ -103,6 +103,8 @@ By default the following filters are registered:
     lower       strtolower($str)
     capfirst    ucfirst($str)
     lowerfirst  lcfirst($str)
+    slug        Str::slug($str)
+    null        empty($str) ? null : $str
 
 ### Laravel 4
 
@@ -113,7 +115,7 @@ These filter rules are specified in properties on the model, `$input` and
 `$output` for mutators and accessors respectively.
 
     class Address extends Model {
-        use HasFilters;
+        use Filter\HasFilters;
 
         public $fillable = ['line1', 'line2', 'line3', 'city', 'postcode'];
         public $input = [
