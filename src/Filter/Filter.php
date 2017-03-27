@@ -163,6 +163,10 @@ class Filter
             return trim($value);
         });
 
+        $this->registerFilter('clean_trim', function($value, array $args) {
+            return trim(preg_replace("/\s+/", " ", $value));
+        });
+
         $this->registerFilter('ltrim', function($value, array $args) {
             if (count($args) > 0) {
                 return ltrim($value, implode($args));
