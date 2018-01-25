@@ -1,4 +1,4 @@
-# Filter [![Latest Stable Version](https://poser.pugx.org/bcalik/filter/v/stable.png)](https://packagist.org/packages/bcalik/filter) [![master](https://travis-ci.org/bcalik/filter.png?branch=master)](https://travis-ci.org/bcalik/filter) [![versioneye dependencies](https://www.versioneye.com/user/projects/5217bad8632bac775003b749/badge.png)](https://www.versioneye.com/user/projects/5217bad8632bac775003b749)
+# Filter 
 
 Aims to help make filtering input to your Eloquent models easier.
 
