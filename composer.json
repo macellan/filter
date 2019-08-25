@@ -1,5 +1,5 @@
 {
-    "name": "bcalik/filter",
+    "name": "mertyildiran/filter",
     "description": "Makes input and output filtering Eloquent models easy",
     "keywords": ["laravel", "filter", "eloquent"],
     "license": "MIT",
@@ -11,17 +11,22 @@
         {
             "name": "Burak Çalık",
             "email":"burak@macellan.net"
+        },
+        {
+            "name": "Mehmet Mert Yildiran",
+            "email":"mehmetmertyildiran@gmail.com",
+            "role": "Maintainer"
         }
     ],
-    "homepage": "https://github.com/bcalik/filter",
+    "homepage": "https://github.com/mertyildiran/filter",
     "support": {
-        "issues": "https://github.com/bcalik/filter/issues",
-        "wiki": "https://github.com/bcalik/filter/wiki"
+        "issues": "https://github.com/mertyildiran/filter/issues",
+        "wiki": "https://github.com/mertyildiran/filter/wiki"
     },
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
-        "illuminate/container": "4.2.*"
+        "illuminate/support": "4.2.*|^5.0",
+        "illuminate/container": "4.2.*|^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
