@@ -18,10 +18,10 @@
             "role": "Maintainer"
         }
     ],
-    "homepage": "https://github.com/mertyildiran/filter",
+    "homepage": "https://github.com/macellan/filter",
     "support": {
-        "issues": "https://github.com/mertyildiran/filter/issues",
-        "wiki": "https://github.com/mertyildiran/filter/wiki"
+        "issues": "https://github.com/macellan/filter/issues",
+        "wiki": "https://github.com/macellan/filter/wiki"
     },
     "require": {
         "php": ">=5.4.0",
