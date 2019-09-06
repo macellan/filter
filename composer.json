@@ -1,5 +1,5 @@
 {
-    "name": "mertyildiran/filter",
+    "name": "macellan/filter",
     "description": "Makes input and output filtering Eloquent models easy",
     "keywords": ["laravel", "filter", "eloquent"],
     "license": "MIT",
